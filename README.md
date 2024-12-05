@@ -331,24 +331,54 @@ To add configuration to `appsettings.json`, you'll primarily configure Serilog. 
 
 ```json
 {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Trace",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Debug"
+    }
+  },
+
+  "AllowedHosts": "*",
+
+  "ApplicationInsights": {
+    "ConnectionString": "{Your Connection String}"
+  },
+
   "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File", "Serilog.Sinks.ApplicationInsights" ],
+
     "MinimumLevel": {
-      "Default": "Information",
+      "Default": "Verbose",
       "Override": {
         "Microsoft": "Warning",
         "System": "Warning"
       }
     },
+
     "WriteTo": [
       {
-        "Name": "Console"
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "[{Timestamp:HH:mm:ss}] [{Level}] {Message}{NewLine}{Exception}"
+        }
+      },
+
+      {
+        "Name": "File",
+        "Args": {
+          "path": "Logs/product-web-api_.log",
+          "rollingInterval": "Day",
+          "outputTemplate": "[{Timestamp:HH:mm:ss}] [{Level}] {Message}{NewLine}{Exception}"
+        }
       }
-    ]
-  },
-  "ApplicationInsights": {
-    "InstrumentationKey": "YOUR_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY"
+    ],
+
+    "Enrich": [ "FromLogContext" ]
   }
+
 }
+
 
 ```
 
