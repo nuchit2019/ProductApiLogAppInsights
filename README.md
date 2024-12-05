@@ -168,7 +168,10 @@ public class ProductService : IProductService
 
 
 ### `5. Controller Layer:`
-Flow Code Logging... 
+Logging and Exception Handling in the Controller Layer
+Other Layers throw Exception 
+
+Flow Code Logging Example...
 ```markdown
 //=====================================================//
 // 1. START_PROCESS
