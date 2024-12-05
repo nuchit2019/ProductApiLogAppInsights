@@ -168,8 +168,7 @@ public class ProductService : IProductService
 
 
 ### `5. Controller Layer:`
-Logging and Exception Handling in the Controller Layer
-Other Layers throw Exception 
+Exception logging and handling This is done in the controller layer. For other layers such as Service, Repo, throw errors into the controller layer.
 
 Flow Code Logging Example...
 ```markdown
