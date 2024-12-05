@@ -9,6 +9,8 @@ Create a new ASP.NET Core Web API project in Visual Studio.  Install the followi
 * `Microsoft.EntityFrameworkCore.InMemory`
 * `Serilog`
 * `Serilog.AspNetCore`
+* `Serilog.Sinks.Console`
+* `Serilog.Sinks.ApplicationInsights`
 * `Microsoft.ApplicationInsights.AspNetCore`
 
 ### `Project Structure`
