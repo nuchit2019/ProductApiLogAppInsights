@@ -168,57 +168,90 @@ public class ProductService : IProductService
 
 
 ### `5. Controller Layer:`
+Code Looging Flow 
+1. START_PROCESS
+ // ..............................
+ //*** Validation Logic
+ // ..............................
+2. WARNING_PROCESS
+
+ // ..............................
+ //*** Business logic
+ // ..............................
+3. SUCCESS_PROCESS
+
+4. EXCEPTION_PROCESS
 
 ```csharp
 // ProductsController.cs
-[ApiController]
-[Route("[controller]")]
-public class ProductsController : ControllerBase
+namespace ProductApi.Controllers
 {
-    private readonly IProductService _service;
-    private readonly ILogger<ProductsController> _logger;
-    private readonly TelemetryClient _telemetryClient; // Add TelemetryClient
-
-    public ProductsController(IProductService service, ILogger<ProductsController> logger, TelemetryClient telemetryClient)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProductController : ControllerBase
     {
-        _service = service;
-        _logger = logger;
-        _telemetryClient = telemetryClient;
-    }
+        private readonly IProductService _productService;
+        private readonly ILogger<ProductController> _logger;
+        private readonly TelemetryClient _telemetryClient;
+        private string processName = "";
+
+        public ProductController(IProductService productService, ILogger<ProductController> logger, TelemetryClient telemetryClient)
+        {
+            _productService = productService;
+            _logger = logger;
+            _telemetryClient = telemetryClient;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            //=====================================================//
+            // 1. START_PROCESS
+            //=====================================================//
+
+            processName = nameof(GetProduct) + $" with Id: {id}";
+            TelemetryHelper.LogProcess(_logger, _telemetryClient, processName, LoggingConstants.START_PROCESS, id);
+
+            try
+            {
+                // ..............................
+                //*** Validation Logic
+                // ..............................
+                if (id <= 0)
+                {
+                    
+                    processName = nameof(GetProduct) + $" Invalid product ID: {id}";
+                    //=====================================================//
+                    // 2. WARNING_PROCESS
+                    //=====================================================//
+                    TelemetryHelper.LogProcess(_logger, _telemetryClient, processName, LoggingConstants.WARNING_PROCESS);
+                }              
 
 
-    [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetAll()
-    {
-        try
-        {
-            return Ok(await _service.GetAllAsync());
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error in GetAll");
-            _telemetryClient.TrackException(ex); // Track exception with Application Insights
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
+                // ..............................
+                //*** Business logic
+                // ..............................
+                var product = await _productService.GetProductAsync(id);
 
-    // Similar methods for GetById, Post, Put, Delete with error handling and logging/tracing.
 
-    [HttpPost]
-    public async Task<IActionResult> Post(Product product)
-    {
-        try
-        {
-            await _service.AddAsync(product);
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+                //=====================================================//
+                // 3. SUCCESS_PROCESS
+                //=====================================================// 
+                TelemetryHelper.LogProcess(_logger, _telemetryClient, processName, LoggingConstants.SUCCESS_PROCESS);
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                //=====================================================//
+                // 4. EXCEPTION_PROCESS
+                //=====================================================//
+                var detail = new { ProductID = id };
+                TelemetryHelper.LogProcess(_logger, _telemetryClient, processName, LoggingConstants.EXCEPTION_PROCESS, detail, ex);
+                return StatusCode(500, "Internal server error");
+
+            }
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error in Post");
-            _telemetryClient.TrackException(ex);
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
     // ... other controller methods
 }
 
