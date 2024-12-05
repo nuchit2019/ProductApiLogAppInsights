@@ -168,7 +168,7 @@ public class ProductService : IProductService
 
 
 ### `5. Controller Layer:`
-Code Looging Flow 
+Flow Code Logging... 
 ```markdown
 //=====================================================//
 // 1. START_PROCESS
