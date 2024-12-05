@@ -1,0 +1,20 @@
+[16:05:26] [Warning] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+[16:05:44] [Information] ProductApi Start Process: AddProduct
+[16:05:44] [Warning] ProductApi Warning Process: AddProduct
+[16:05:45] [Information] ProductApi Success Process: AddProduct
+[16:05:46] [Information] ProductApi Start Process: AddProduct
+[16:05:46] [Warning] ProductApi Warning Process: AddProduct
+[16:05:46] [Information] ProductApi Success Process: AddProduct
+[16:05:50] [Information] ProductApi Start Process: GetAllProducts
+[16:05:50] [Warning] ProductApi Warning Process: GetAllProducts
+[16:05:50] [Information] ProductApi Success Process: GetAllProducts
+[16:05:53] [Information] ProductApi Start Process: GetAllProducts
+[16:05:53] [Warning] ProductApi Warning Process: GetAllProducts
+[16:05:53] [Information] ProductApi Success Process: GetAllProducts
+[16:13:27] [Warning] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+[16:13:39] [Information] ProductApi Start Process: AddProduct
+[16:13:39] [Warning] ProductApi Warning Process: AddProduct
+[16:13:40] [Information] ProductApi Success Process: AddProduct
+[16:13:47] [Information] ProductApi Start Process: GetAllProducts
+[16:13:47] [Warning] ProductApi Warning Process: GetAllProducts
+[16:13:47] [Information] ProductApi Success Process: GetAllProducts
