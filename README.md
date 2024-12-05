@@ -536,3 +536,5 @@ namespace ProductApi.Logging
 * **Error Handling:**  The code already includes robust error handling with logging and tracing. The `try-catch` blocks ensure that exceptions are logged properly using Serilog and tracked with Application Insights.
 * **InMemory Database:** Remember that the InMemory database is *only* suitable for development and testing.  For a real-world application, you must replace `UseInMemoryDatabase` with a proper database provider (like SQL Server, PostgreSQL, etc.) and configure its connection string in `appsettings.json`.
 
+### `Ref: Application Insights for ASP.NET Core applications`
+https://learn.microsoft.com/en-us/azure/azure-monitor/app/asp-net-core
